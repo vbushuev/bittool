@@ -8,15 +8,9 @@ function recalculate(){
     });
     $("a.result").text("0x"+val.toHexString());
 }
-$("a.resulte").on("click",function(){
-    $(this).get(0).select();
-    try {
-        var successful = document.execCommand('copy');
-        var msg = successful ? 'successful' : 'unsuccessful';
-        console.log('Copying text command was ' + msg);
-      } catch (err) {
-        console.log('Oops, unable to copy');
-      }
+$("a.reset").on("click",function(){
+    $("div.bit a").text("0");
+    recalculate();
 });
 $("div.bit a").on("click",function(e){
     e.preventDefault();

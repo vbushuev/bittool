@@ -1,7 +1,7 @@
 *{
     font-family: "Lato","Roboto Mono";
-    font-size: 10pt;
-    color: rgba(0,0,0,.5);
+    font-size: 11pt;
+    color: rgba(0,0,0,1);
 }
 div.bit{
     display: inline-block;
@@ -24,4 +24,17 @@ a.result{
     font-size: 14pt;
     color:rgba(0, 0, 0, 0.9);
     cursor: pointer;
+    padding:0 .4em;
+    margin:0 .4em;
+}
+a.reset,a.btn{
+    display: inline-block;
+    border: solid 1px #ddd;
+    height: 2em;
+    width: 2em;
+    line-height: 2em;
+    font-size: 14pt;
+    color:rgba(0, 0, 0, 0.9);
+    cursor: pointer;
+    margin:0 .4em;
 }
