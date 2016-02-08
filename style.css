@@ -1,0 +1,27 @@
+*{
+    font-family: "Lato","Roboto Mono";
+    font-size: 10pt;
+    color: rgba(0,0,0,.5);
+}
+div.bit{
+    display: inline-block;
+    width: 2em;
+}
+div.bit a{
+    display: block;
+    border: solid 1px #ddd;
+    height: 2em;
+    line-height: 2em;
+    font-size: 14pt;
+    color:rgba(255, 0, 0, 0.9);
+    cursor: pointer;
+}
+a.result{
+    display: inline-block;
+    border: solid 1px #ddd;
+    height: 2em;
+    line-height: 2em;
+    font-size: 14pt;
+    color:rgba(0, 0, 0, 0.9);
+    cursor: pointer;
+}
