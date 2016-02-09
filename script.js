@@ -28,6 +28,35 @@ function checkDObits(t){
         t.parent().parent().find("div.bit a[rel-data="+pad(bit[i],2)+"]").removeClass("choosed").text("0");
     }
 }
+function checkDIbits(t){
+    var doBitDependens = [
+        [0,1,14], // A1
+        [0,1,14], // A2
+        [2,3,4], // A3
+        [2,3,4], // A4
+        [2,3,4], // A5
+        [5], // A6
+        [6,7], // A7
+        [6,7], // A8
+        [8,9,10], // A9
+        [8,9,10], // A10
+        [8,9,10], // A11
+        [11], // A12
+        [12,13], // A13
+        [12,13], // A14
+        [0,1], // A15
+        [], // A6
+        [], // A17
+        [] // A18
+    ];
+    var bit = doBitDependens[parseInt(t.attr("rel-data"))];
+    console.debug("dependens for "+t.attr("rel-data")+" is "+bit);
+    if(typeof bit == "undefined") return;
+    for(var i=0;i<bit.length;++i){
+        console.debug(bit[i]);
+        $(".di div.bit a[rel-data="+pad(bit[i],2)+"]").removeClass("choosed").text("0");
+    }
+}
 function pad(num, size) {
     var s = "0" + num;
     //console.debug("padding zeros for["+num+"] "+s);
@@ -59,8 +88,8 @@ function recalculate(){
     $("a.di-result").text("0x"+vdi.toHexString());
     $("a.d-result").text("0x"+vd.toHexString());
     var text_di=",{0,0x"+vdi.toHexString()+"}";
-    if($(".encoder.choosed").length)text_di=",{2,"+$(".encoder.choosed").text()+"}";
-    if($(".timer.choosed").length)text_di=",{1,"+$(".timer.choosed").text()+"}";
+    if($(".encoder.choosed").length)text_di=",{2,0/*"+$(".encoder.choosed").text()+"*/}";
+    if($(".timer.choosed").length)text_di=",{1,0/*"+$(".timer.choosed").text()+"*/}";
     var text = "{0x"+vdo.toHexString()+text_di+",0x"+vd.toHexString()+",0},";
     $("#result").text(text);
     //$('.result').click();
@@ -70,7 +99,6 @@ $("a.fix").on("click",function(){
     text=text.split("<br>");
     console.debug(text.length);
     $(".scenario").html($(".scenario").html()+$("#result").text()+"//"+pad(text.length-1,2)+"<br>");
-
 });
 $("a.fix-back").on("click",function(){
     var text=$(".scenario").html();
@@ -89,6 +117,7 @@ $(".encoder,.timer").on("click",function(e){
     if(t.hasClass("choosed"))t.removeClass("choosed");
     else{
         $(".encoder,.timer").removeClass("choosed");
+        checkDIbits(t);
         t.addClass("choosed");
     }
     recalculate();
@@ -100,17 +129,37 @@ $("a.reset").on("click",function(){
     $(this).parent().find("div.bit a").text("0");
     recalculate();
 });
-
 $("div.bit a").on("click",function(e){
     e.preventDefault();
     var t=$(this);
     if(t.text()=="0"){
         if(t.parent().parent().hasClass("do")||t.parent().parent().hasClass("d"))checkDObits(t);
+        if(t.parent().parent().hasClass("di")){
+            checkDIbits(t);
+            $(".encoder,.timer").removeClass("choosed");
+        }
         t.addClass("choosed");
         t.text("1");
     }
     else{t.removeClass("choosed");t.text("0");}
     recalculate();
 })
+$('.result').on('focus', function() {
+    before = $(this).html();
+}).on('blur paste', function() {
+    if (before != $(this).html()) { $(this).trigger('change'); }
+}).on("change",function(e){
+    var tut = $(this);
+    var hex = tut.text();
+    var bit = ConvertBase.hex2bin(hex.substr(2)).split("").reverse().join("");
+    console.debug(hex.substr(2)+" => "+bit);
+    tut.parent().find("div.bit a").removeClass("choosed").text("0");
+    for(var i=0;i<bit.length;++i){
+        var v=bit[i];
+        if(v=="1")
+            tut.parent().find("div.bit a[rel-data="+pad(i,2)+"]").addClass("choosed").text("1");
+    }
+    recalculate();
+});
 new Clipboard('.result');
 recalculate();

@@ -50,7 +50,7 @@
         <div class="bit">3<a rel-data="02">0</a></div>
         <div class="bit">2<a rel-data="01">0</a></div>
         <div class="bit">1<a rel-data="00">0</a></div>
-        <a class="do-result result" data-clipboard-target="#result"></a><a class="reset">R</a>
+        <a class="do-result result" id="do-result" contenteditable="true" data-clipboard-target="#do-result"></a><a class="reset">R</a>
     </center>
     <center class="di">
         <b>DI</b>:
@@ -89,7 +89,7 @@
         <div class="bit">3<a rel-data="02">0</a></div>
         <div class="bit">2<a rel-data="01">0</a></div>
         <div class="bit">1<a rel-data="00">0</a></div>
-        <a class="di-result result" data-clipboard-target="#result"></a><a class="reset">R</a>
+        <a class="di-result result" id="di-result" contenteditable="true" data-clipboard-target="#di-result"></a><a class="reset">R</a>
     </center>
     <center class="d">
         <b>D</b>:
@@ -128,17 +128,17 @@
         <div class="bit">3<a rel-data="02">0</a></div>
         <div class="bit">2<a rel-data="01">0</a></div>
         <div class="bit">1<a rel-data="00">0</a></div>
-        <a class="d-result result" data-clipboard-target="#result"></a><a class="reset">R</a>
+        <a class="d-result result" id="d-result" contenteditable="true" data-clipboard-target="#d-result"></a><a class="reset">R</a>
     </center>
     <br />
     <center>
     <a class="timer">rtv.tV10</a>
     <a class="timer">rtv.tV19</a>
-	<a class="encoder">rtv.LC</a>
-    <a class="encoder">rtv.Lh</a>
+	<a class="encoder" rel-data="05">rtv.LC</a>
+    <a class="encoder" rel-data="05">rtv.Lh</a>
     <a class="encoder">rtv.Lr</a>
-	<a class="encoder">rtv.RC</a>
-    <a class="encoder">rtv.Rh</a>
+	<a class="encoder" rel-data="11">rtv.RC</a>
+    <a class="encoder" rel-data="11">rtv.Rh</a>
     <a class="encoder">rtv.Rr</a>
 	<a class="encoder">rtv.L</a>
 	<a class="encoder">rtv.R</a>
@@ -150,7 +150,7 @@
     <br />
     <center>
         <a class="btn fix" data-clipboard-target="#scenario">S</a>
-        <a class="btn fix-back"><-</a>
+        <a class="btn fix-back">&larr;</a>
         <a class="btn fix-reset">R</a>
         <br />
         <div style="display:block;" class="result scenario" id="scenario" data-clipboard-target="#scenario"></div>
@@ -159,5 +159,6 @@
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script type="text/javascript" src="bit-array.js"></script>
     <script type="text/javascript" src="clipboard.js"></script>
+    <script type="text/javascript" src="baseConverter.js"></script>
     <script type="text/javascript" src="script.js"></script>
 </html>
