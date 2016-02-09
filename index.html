@@ -92,7 +92,7 @@
         <a class="di-result result" id="di-result" contenteditable="true" data-clipboard-target="#di-result"></a><a class="reset">R</a>
     </center>
     <center class="d">
-        <b>D</b>:
+        <b>DO</b>:
         <div class="bit">32<a rel-data="31">0</a></div>
         <div class="bit">31<a rel-data="30">0</a></div>
         <div class="bit">30<a rel-data="29">0</a></div>
@@ -132,21 +132,27 @@
     </center>
     <br />
     <center>
-    <a class="timer">rtv.tV10</a>
-    <a class="timer">rtv.tV19</a>
-	<a class="encoder" rel-data="05">rtv.LC</a>
-    <a class="encoder" rel-data="05">rtv.Lh</a>
-    <a class="encoder">rtv.Lr</a>
-	<a class="encoder" rel-data="11">rtv.RC</a>
-    <a class="encoder" rel-data="11">rtv.Rh</a>
-    <a class="encoder">rtv.Rr</a>
-	<a class="encoder">rtv.L</a>
-	<a class="encoder">rtv.R</a>
-	<a class="timer">rtv.tstart</a>
-	<a class="timer">rtv.ttaker</a>
+        <section>
+            <a class="timer">rtv.tstart</a>
+            <a class="timer">rtv.ttaker</a>
+        </section>
+        <section class="w50">
+            <a class="timer">rtv.tV10</a>
+        	<a class="encoder" rel-data="05">rtv.LC</a>
+            <a class="encoder" rel-data="05">rtv.Lh</a>
+            <a class="encoder">rtv.Lr</a>
+            <a class="encoder">rtv.L</a>
+        </section>
+        <section class="w50">
+            <a class="timer">rtv.tV19</a>
+            <a class="encoder" rel-data="11">rtv.RC</a>
+            <a class="encoder" rel-data="11">rtv.Rh</a>
+            <a class="encoder">rtv.Rr</a>
+        	<a class="encoder">rtv.R</a>
+        </section>
     </center>
     <br/>
-    <div style="display:block;" class="result" id="result" data-clipboard-target="#result"></div>
+    <div style="display:block;" class="result" contenteditable="true" id="result" data-clipboard-target="#result"></div>
     <br />
     <center>
         <a class="btn fix" data-clipboard-target="#scenario">S</a>

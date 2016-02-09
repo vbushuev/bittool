@@ -88,11 +88,14 @@ function recalculate(){
     $("a.di-result").text("0x"+vdi.toHexString());
     $("a.d-result").text("0x"+vd.toHexString());
     var text_di=",{0,0x"+vdi.toHexString()+"}";
-    if($(".encoder.choosed").length)text_di=",{2,0/*"+$(".encoder.choosed").text()+"*/}";
-    if($(".timer.choosed").length)text_di=",{1,0/*"+$(".timer.choosed").text()+"*/}";
+    if($(".encoder.choosed").length)text_di=",{2,0x"+vdi.toHexString()+"/*"+$(".encoder.choosed").text()+"*/}";
+    if($(".timer.choosed").length)text_di=",{1,0x"+vdi.toHexString()+"/*"+$(".timer.choosed").text()+"*/}";
     var text = "{0x"+vdo.toHexString()+text_di+",0x"+vd.toHexString()+",0},";
     $("#result").text(text);
     //$('.result').click();
+}
+function parsePrj(){
+    var prj = $(".scenario").html().split("<br>");
 }
 $("a.fix").on("click",function(){
     var text=$(".scenario").html();
@@ -126,7 +129,7 @@ $("a.fix-reset").on("click",function(){
     $(".scenario").html("");
 });
 $("a.reset").on("click",function(){
-    $(this).parent().find("div.bit a").text("0");
+    $(this).parent().find("div.bit a").removeClass("choosed").text("0");
     recalculate();
 });
 $("div.bit a").on("click",function(e){
@@ -144,11 +147,12 @@ $("div.bit a").on("click",function(e){
     else{t.removeClass("choosed");t.text("0");}
     recalculate();
 })
-$('.result').on('focus', function() {
+$('[contenteditable=true]').on('focus', function() {
     before = $(this).html();
 }).on('blur paste', function() {
     if (before != $(this).html()) { $(this).trigger('change'); }
-}).on("change",function(e){
+});
+$(".result").on("change",function(e){
     var tut = $(this);
     var hex = tut.text();
     var bit = ConvertBase.hex2bin(hex.substr(2)).split("").reverse().join("");
