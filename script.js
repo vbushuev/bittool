@@ -1,22 +1,115 @@
+//make checks
+function checkDObits(t){
+    var doBitDependens = [
+        [0,1], // V1
+        [0,1], // V2
+        [2,3,4,5,11,12,13,14], // V3
+        [2,3,4,5,11,12,13,14], // V4
+        [2,3,4,5,11,12,13,14], // V5
+        [2,3,4,5,11,12,13,14], // V6
+        [6,7], // V7
+        [6,7], // V8
+        [], // V9
+        [], // V10
+        [], // V11
+        [2,3,4,5,11,12,13,14], // V12
+        [2,3,4,5,11,12,13,14], // V13
+        [2,3,4,5,11,12,13,14], // V14
+        [2,3,4,5,11,12,13,14], // V15
+        [], // V6
+        [], // V17
+        [] // V18
+    ];
+    var bit = doBitDependens[parseInt(t.attr("rel-data"))];
+    console.debug("dependens for "+t.attr("rel-data")+" is "+bit);
+    if(typeof bit == "undefined") return;
+    for(var i=0;i<bit.length;++i){
+        console.debug(bit[i]);
+        t.parent().parent().find("div.bit a[rel-data="+pad(bit[i],2)+"]").removeClass("choosed").text("0");
+    }
+}
+function pad(num, size) {
+    var s = "0" + num;
+    //console.debug("padding zeros for["+num+"] "+s);
+    return s.substr(s.length-size);
+}
 function recalculate(){
-    var val= new BitArray(32);
-    $("div.bit a").each(function(){
+    var vdo = new BitArray(32);
+    var vdi = new BitArray(32);
+    var vd = new BitArray(32);
+    $(".do div.bit a").each(function(){
         var tut=$(this);
         var pos=parseInt(tut.attr("rel-data"));
         //console.debug("pos="+pos+" val="+tut.text());
-        val.set(pos,tut.text()=="1");
+        vdo.set(pos,tut.text()=="1");
     });
-    $("a.result").text("0x"+val.toHexString());
+    $(".di div.bit a").each(function(){
+        var tut=$(this);
+        var pos=parseInt(tut.attr("rel-data"));
+        //console.debug("pos="+pos+" val="+tut.text());
+        vdi.set(pos,tut.text()=="1");
+    });
+    $(".d div.bit a").each(function(){
+        var tut=$(this);
+        var pos=parseInt(tut.attr("rel-data"));
+        //console.debug("pos="+pos+" val="+tut.text());
+        vd.set(pos,tut.text()=="1");
+    });
+    $("a.do-result").text("0x"+vdo.toHexString());
+    $("a.di-result").text("0x"+vdi.toHexString());
+    $("a.d-result").text("0x"+vd.toHexString());
+    var text_di=",{0,0x"+vdi.toHexString()+"}";
+    if($(".encoder.choosed").length)text_di=",{2,"+$(".encoder.choosed").text()+"}";
+    if($(".timer.choosed").length)text_di=",{1,"+$(".timer.choosed").text()+"}";
+    var text = "{0x"+vdo.toHexString()+text_di+",0x"+vd.toHexString()+",0},";
+    $("#result").text(text);
+    //$('.result').click();
 }
-$("a.reset").on("click",function(){
-    $("div.bit a").text("0");
+$("a.fix").on("click",function(){
+    var text=$(".scenario").html();
+    text=text.split("<br>");
+    console.debug(text.length);
+    $(".scenario").html($(".scenario").html()+$("#result").text()+"//"+pad(text.length-1,2)+"<br>");
+
+});
+$("a.fix-back").on("click",function(){
+    var text=$(".scenario").html();
+    console.debug(text);
+    text=text.split("<br>");//$(".scenario").html()+$("#result").text()+"<br/>");
+    console.debug(text.length);
+    $(".scenario").html("");
+    for(var i=0;i<text.length-2;++i){
+        console.debug(text[i]);
+        $(".scenario").html($(".scenario").html()+text[i]+"<br/>");
+    }
+});
+$(".encoder,.timer").on("click",function(e){
+    e.preventDefault();
+    var t=$(this);
+    if(t.hasClass("choosed"))t.removeClass("choosed");
+    else{
+        $(".encoder,.timer").removeClass("choosed");
+        t.addClass("choosed");
+    }
     recalculate();
 });
+$("a.fix-reset").on("click",function(){
+    $(".scenario").html("");
+});
+$("a.reset").on("click",function(){
+    $(this).parent().find("div.bit a").text("0");
+    recalculate();
+});
+
 $("div.bit a").on("click",function(e){
     e.preventDefault();
     var t=$(this);
-    if(t.text()=="0"){t.addClass("bitsetted");t.text("1");}
-    else{t.removeClass("bitsetted");t.text("0");}
+    if(t.text()=="0"){
+        if(t.parent().parent().hasClass("do")||t.parent().parent().hasClass("d"))checkDObits(t);
+        t.addClass("choosed");
+        t.text("1");
+    }
+    else{t.removeClass("choosed");t.text("0");}
     recalculate();
 })
 new Clipboard('.result');

@@ -1,22 +1,24 @@
 *{
-    font-family: "Lato","Roboto Mono";
+    font-family: "Roboto Mono","Lato";
     font-size: 11pt;
     color: rgba(0,0,0,1);
 }
 div.bit{
     display: inline-block;
     width: 2em;
+    font-size: 8pt;
 }
 div.bit a{
+    font-size: 11pt;
     display: block;
     border: solid 1px #ddd;
     height: 2em;
     line-height: 2em;
     font-size: 14pt;
-    color:rgba(255, 0, 0, 0.9);
     cursor: pointer;
 }
-a.result{
+a.result,#result{
+    text-align: center;
     display: inline-block;
     border: solid 1px #ddd;
     height: 2em;
@@ -37,4 +39,19 @@ a.reset,a.btn{
     color:rgba(0, 0, 0, 0.9);
     cursor: pointer;
     margin:0 .4em;
+}
+.encoder,.timer{
+    width: 6.4em;
+    display: inline-block;
+    border: solid 1px #ddd;
+    height: 2em;
+    line-height: 2em;
+    font-size: 14pt;
+    color:rgba(0, 0, 0, 0.9);
+    cursor: pointer;
+    margin:.2em .4em;
+}
+.choosed{
+    background-color: rgba(0,0,0,.52);
+    color: rgba(255, 255, 255, 1);
 }
