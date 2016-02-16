@@ -165,5 +165,10 @@ $(".result").on("change",function(e){
     }
     recalculate();
 });
+$("#ascii").on("change",function(){
+    $("#hexi").html(ascii_to_hex($(this).text()));
+    $("#lrc").html(lrc($(this).text()));
+});
+
 new Clipboard('.result');
 recalculate();
