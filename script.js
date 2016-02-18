@@ -167,8 +167,11 @@ $(".result").on("change",function(e){
 });
 $("#ascii").on("change",function(){
     $("#hexi").html(ascii_to_hex($(this).text()));
+    $("#lrc").html(lrc($("#hexi").text()));
+});
+$("#hexi").on("change",function(){
+    $("#ascii").html(hex_to_ascii($(this).text()));
     $("#lrc").html(lrc($(this).text()));
 });
-
 new Clipboard('.result');
 recalculate();
